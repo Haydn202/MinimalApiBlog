@@ -45,28 +45,113 @@ namespace MinimalApiBlog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7464b48b-9c62-439c-b5c4-9a465bf944ed"),
+                            Id = new Guid("f54e75d6-3b75-493b-8e8c-64a8976cbaa4"),
                             ContentUrl = "I'm an article",
-                            CreatedOn = new DateTime(2023, 9, 2, 15, 58, 10, 263, DateTimeKind.Local).AddTicks(7410),
+                            CreatedOn = new DateTime(2023, 9, 2, 16, 59, 46, 304, DateTimeKind.Local).AddTicks(5450),
                             Description = "test article 1",
                             Title = "article 1"
                         },
                         new
                         {
-                            Id = new Guid("a77fe743-1f20-46c1-89a8-0d75c75edded"),
+                            Id = new Guid("5311df7c-67e6-4ef4-af0c-d48d636e3eb7"),
                             ContentUrl = "I'm an article",
-                            CreatedOn = new DateTime(2023, 9, 2, 15, 58, 10, 263, DateTimeKind.Local).AddTicks(7500),
+                            CreatedOn = new DateTime(2023, 9, 2, 16, 59, 46, 304, DateTimeKind.Local).AddTicks(6600),
                             Description = "test article 2",
                             Title = "article 2"
                         },
                         new
                         {
-                            Id = new Guid("b90c3da7-8da8-4c2b-884e-eba7c6ac0b39"),
+                            Id = new Guid("f31ecaca-ddad-4126-a608-b3797f200c2a"),
                             ContentUrl = "I'm an article",
-                            CreatedOn = new DateTime(2023, 9, 2, 15, 58, 10, 263, DateTimeKind.Local).AddTicks(7510),
+                            CreatedOn = new DateTime(2023, 9, 2, 16, 59, 46, 304, DateTimeKind.Local).AddTicks(6620),
                             Description = "test article 3",
                             Title = "article 3"
                         });
+                });
+
+            modelBuilder.Entity("MinimalApiBlog.Entities.ArticleTopic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ArticleId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("TopicId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("ArticleTopic");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d89983d0-dd9c-4c32-91d7-8b8d5f99bd1d"),
+                            ArticleId = new Guid("f54e75d6-3b75-493b-8e8c-64a8976cbaa4"),
+                            TopicId = new Guid("0c9d3856-8f35-4652-9ff1-fce8abacc017")
+                        });
+                });
+
+            modelBuilder.Entity("MinimalApiBlog.Entities.Topic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topic");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0c9d3856-8f35-4652-9ff1-fce8abacc017"),
+                            Name = "example Topic 1"
+                        },
+                        new
+                        {
+                            Id = new Guid("b0a5029c-a110-4e83-808f-b50fb2d1e5ce"),
+                            Name = "example Topic 2"
+                        },
+                        new
+                        {
+                            Id = new Guid("bd55f2c7-86dd-4d2a-a6c1-0684c7c0799d"),
+                            Name = "example Topic 3"
+                        });
+                });
+
+            modelBuilder.Entity("MinimalApiBlog.Entities.ArticleTopic", b =>
+                {
+                    b.HasOne("MinimalApiBlog.Entities.Article", "Article")
+                        .WithMany("ArticleTopics")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MinimalApiBlog.Entities.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("MinimalApiBlog.Entities.Article", b =>
+                {
+                    b.Navigation("ArticleTopics");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,6 @@
 namespace MinimalApiBlog.Models.Article
 {
-    public enum Topic
+    public enum TopicDto
     {
         DevOps,
         Language,
