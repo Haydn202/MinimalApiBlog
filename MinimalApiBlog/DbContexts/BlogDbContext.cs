@@ -1,11 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using MinimalApiBlog.Entities;
 
 namespace MinimalApiBlog.DbContexts
 {
     public class BlogDbContext : DbContext
     {
-        public DbSet<Article> Articles { get; set; } = null!;
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<MainComment> MainComments { get; set; }
+        public DbSet<SubComment> SubComments { get; set; }
 
         public BlogDbContext(DbContextOptions<BlogDbContext> options)
             : base(options)
@@ -14,39 +20,32 @@ namespace MinimalApiBlog.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var topicOne = new Topic { Id = Guid.NewGuid(), Name = "example Topic 1" };
-            var articleOne = new Article("article 1", "test article 1", "I'm an article");
-
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ArticleTopic>()
-                .HasKey(at => at.Id);
+            // Configure the Topic entity
+            modelBuilder.Entity<Topic>()
+                .HasKey(t => t.Id);
 
-            modelBuilder.Entity<ArticleTopic>()
-                .HasOne(at => at.Article)
-                .WithMany(a => a.ArticleTopics)
-                .HasForeignKey(at => at.ArticleId);
-
-            modelBuilder.Entity<ArticleTopic>()
-                .HasOne(at => at.Topic)
+            // Configure other entities and relationships here
+            modelBuilder.Entity<Article>()
+                .HasOne(a => a.Topic)
                 .WithMany()
-                .HasForeignKey(at => at.TopicId);
-            
-            modelBuilder.Entity<Article>().HasData(
-                articleOne,
-                new Article("article 2", "test article 2", "I'm an article"),
-                new Article("article 3", "test article 3", "I'm an article")
-            );
+                .HasForeignKey(a => a.TopicId);
 
-            modelBuilder.Entity<Topic>().HasData(
-                topicOne,
-                new Topic { Id = Guid.NewGuid(), Name = "example Topic 2" },
-                new Topic { Id = Guid.NewGuid(), Name = "example Topic 3" }
-            );
+            modelBuilder.Entity<Article>()
+                .HasOne(a => a.Author)
+                .WithMany()
+                .HasForeignKey(a => a.AuthorId);
 
-            modelBuilder.Entity<ArticleTopic>().HasData(
-                new ArticleTopic { Id = Guid.NewGuid(), ArticleId = articleOne.Id, TopicId = topicOne.Id }
-            );
+            modelBuilder.Entity<Article>()
+                .HasMany(a => a.Comments)
+                .WithOne()
+                .HasForeignKey(c => c.ArticleId);
+
+            modelBuilder.Entity<MainComment>()
+                .HasMany(mc => mc.SubComments)
+                .WithOne()
+                .HasForeignKey(sc => sc.MainCommentId);
         }
     }
 }

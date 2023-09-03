@@ -30,7 +30,7 @@ using (var serviceScope = app.Services.GetService<IServiceScopeFactory>
     var context = serviceScope?.ServiceProvider.GetRequiredService<BlogDbContext>
         ();
     context.Database.EnsureDeleted();
-    context.Database.Migrate();
+    // context.Database.Migrate();
 }
 
 app.Run();
