@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using blog.Models.Comments;
 using MinimalApiBlog.Entities;
 
 namespace MinimalApiBlog.DbContexts
@@ -102,44 +103,44 @@ namespace MinimalApiBlog.DbContexts
             article2
         );
 
-        // var comment1 = new MainComment
-        // {
-        //     Id = Guid.NewGuid(),
-        //     Message = "Great article!",
-        //     ArticleId = article1.Id,
-        //     CreatedOn = DateTime.Now
-        // };
-        // var comment2 = new MainComment
-        // {
-        //     Id = Guid.NewGuid(),
-        //     Message = "I found this very informative.",
-        //     ArticleId = article1.Id,
-        //     CreatedOn = DateTime.Now
-        // };
-        //
-        // // Sample MainComments
-        // modelBuilder.Entity<MainComment>().HasData(
-        //     comment1,
-        //     comment2
-        // );
+        var comment1 = new MainComment
+        {
+            Id = Guid.NewGuid(),
+            Message = "Great article!",
+            ArticleId = article1.Id,
+            CreatedOn = DateTime.Now
+        };
+        var comment2 = new MainComment
+        {
+            Id = Guid.NewGuid(),
+            Message = "I found this very informative.",
+            ArticleId = article1.Id,
+            CreatedOn = DateTime.Now
+        };
+        
+        // Sample MainComments
+        modelBuilder.Entity<MainComment>().HasData(
+            comment1,
+            comment2
+        );
 
-        // // Sample SubComments
-        // modelBuilder.Entity<SubComment>().HasData(
-        //     new SubComment
-        //     {
-        //         Id = Guid.NewGuid(),
-        //         Message = "Thank you!",
-        //         MainCommentId = comment2.Id,
-        //         CreatedOn = DateTime.Now
-        //     },
-        //     new SubComment
-        //     {
-        //         Id = Guid.NewGuid(),
-        //         Message = "I agree!",
-        //         MainCommentId = comment2.Id,
-        //         CreatedOn = DateTime.Now
-        //     }
-        // );
+        // Sample SubComments
+        modelBuilder.Entity<SubComment>().HasData(
+            new SubComment
+            {
+                Id = Guid.NewGuid(),
+                Message = "Thank you!",
+                MainCommentId = comment2.Id,
+                CreatedOn = DateTime.Now
+            },
+            new SubComment
+            {
+                Id = Guid.NewGuid(),
+                Message = "I agree!",
+                MainCommentId = comment2.Id,
+                CreatedOn = DateTime.Now
+            }
+        );
         }
     }
 }

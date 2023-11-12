@@ -16,7 +16,7 @@ app.UseHttpsRedirection();
 
 app.MapGet("/Articles", async (BlogDbContext blogDbContext, IMapper mapper) =>
 {
-    return mapper.Map<ArticleDto>(await blogDbContext.Articles.ToListAsync());
+    return mapper.Map<IList<ArticleDto>>(await blogDbContext.Articles.ToListAsync());
 });
 
 app.MapGet("/Articles/{articleId:guid}", async (Guid articleId, BlogDbContext blogDbContext , IMapper mapper) =>
