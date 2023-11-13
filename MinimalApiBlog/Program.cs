@@ -1,4 +1,6 @@
+using System.Collections;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using MinimalApiBlog.DbContexts;
 using MinimalApiBlog.Models.Article;
@@ -14,14 +16,21 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.MapGet("/Articles", async (BlogDbContext blogDbContext, IMapper mapper) =>
+app.MapGet("/Articles", async Task<Ok<IEnumerable<ArticleDto>>> (BlogDbContext blogDbContext, IMapper mapper) =>
 {
-    return mapper.Map<IList<ArticleDto>>(await blogDbContext.Articles.ToListAsync());
+    return TypedResults.Ok(mapper.Map<IEnumerable<ArticleDto>>(await blogDbContext.Articles.ToListAsync()));
 });
 
-app.MapGet("/Articles/{articleId:guid}", async (Guid articleId, BlogDbContext blogDbContext , IMapper mapper) =>
+app.MapGet("/Articles/{articleId:guid}", async Task<Results<NotFound, Ok<ArticleDto>>> (Guid articleId, BlogDbContext blogDbContext, IMapper mapper) =>
 {
-    return mapper.Map<ArticleDto>(await blogDbContext.Articles.FirstOrDefaultAsync(a => a.Id == articleId));
+    var article = await blogDbContext.Articles.FirstOrDefaultAsync(a => a.Id == articleId);
+
+    if (article == null)
+    {
+        return TypedResults.NotFound();
+    }
+    
+    return TypedResults.Ok(mapper.Map<ArticleDto>(article));
 });
 
 using (var serviceScope = app.Services.GetService<IServiceScopeFactory>
