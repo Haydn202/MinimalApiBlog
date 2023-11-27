@@ -11,8 +11,8 @@ namespace MinimalApiBlog.Entities
             "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/640px-SpongeBob_SquarePants_character.svg.png";
         public DateTime CreatedOn { get; set; }
         public string ContentUrl { get; set; } 
-        public Topic Topic { get; set; }
-        public Author Author { get; set; }
+        public Topic? Topic { get; set; }
+        public Author? Author { get; set; }
         public List<MainComment>? Comments { get; set; }
         public Guid TopicId { get; set; }
         public Guid AuthorId { get; set; }

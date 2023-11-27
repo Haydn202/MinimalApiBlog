@@ -23,20 +23,16 @@ namespace MinimalApiBlog.DbContexts
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configure the Topic entity
         modelBuilder.Entity<Topic>()
             .HasKey(t => t.Id);
 
-        // Configure other entities and relationships here
         modelBuilder.Entity<Article>()
             .HasOne(a => a.Topic)
             .WithMany()
             .HasForeignKey(a => a.TopicId);
 
         modelBuilder.Entity<Article>()
-            .HasOne(a => a.Author)
-            .WithMany()
-            .HasForeignKey(a => a.AuthorId);
+            .HasOne(a => a.Author);
 
         modelBuilder.Entity<Article>()
             .HasMany(a => a.Comments)

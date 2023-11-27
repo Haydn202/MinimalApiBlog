@@ -15,7 +15,8 @@ public class ArticleProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
             .ForMember(dest => dest.ContentUrl, opt => opt.MapFrom(src => src.ContentUrl));
+
+        CreateMap<ArticleCreationDto, Article>();
     }
-    
 }
 

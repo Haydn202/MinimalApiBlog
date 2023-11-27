@@ -1,16 +1,22 @@
 namespace MinimalApiBlog.Models.Article
 {
-    public enum TopicDto
+    // public enum TopicDto
+    // {
+    //     DevOps,
+    //     Language,
+    //     Cloud,
+    //     Frontend,
+    //     Backend,
+    //     DataStructures,
+    //     Algorithms,
+    //     Scripting,
+    //     Design,
+    //     Programing
+    // }
+    //
+    public class TopicDto
     {
-        DevOps,
-        Language,
-        Cloud,
-        Frontend,
-        Backend,
-        DataStructures,
-        Algorithms,
-        Scripting,
-        Design,
-        Programing
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }
