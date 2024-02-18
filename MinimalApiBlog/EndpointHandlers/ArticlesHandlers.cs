@@ -63,4 +63,21 @@ public static class ArticlesHandlers
         
         return TypedResults.Ok(mapper.Map<ArticleDto>(article));
     }
+
+    public static async Task<Results<NotFound, NoContent>> DeleteArticleAsync(
+        Guid articleId, 
+        BlogDbContext blogDbContext)
+    {
+        var article = await blogDbContext.Articles.FirstOrDefaultAsync(a => a.Id == articleId);
+
+        if (article == null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        blogDbContext.Articles.Remove(article);
+        await blogDbContext.SaveChangesAsync();
+
+        return TypedResults.NoContent();
+    }
 }

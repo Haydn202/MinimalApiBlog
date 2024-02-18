@@ -63,4 +63,21 @@ public static class TopicsHandlers
     
         return TypedResults.Ok(mapper.Map<TopicDto>(topic));
     }
+
+    public static async Task<Results<NotFound, NoContent>> DeleteTopicAsync(
+        Guid topicId,
+        BlogDbContext blogDbContext)
+    {
+        var topic = await blogDbContext.Topics.FirstOrDefaultAsync(a => a.Id == topicId);
+        
+        if (topic == null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        blogDbContext.Topics.Remove(topic);
+        await blogDbContext.SaveChangesAsync();
+    
+        return TypedResults.NoContent();
+    }
 }
