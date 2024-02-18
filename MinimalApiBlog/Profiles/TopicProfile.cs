@@ -1,6 +1,6 @@
 using AutoMapper;
 using MinimalApiBlog.Entities;
-using MinimalApiBlog.Models.Article;
+using MinimalApiBlog.Models.Topic;
 
 namespace MinimalApiBlog.Profiles;
 
@@ -10,5 +10,6 @@ public class TopicProfile : Profile
     {
         CreateMap<Topic, TopicDto>();
         CreateMap<TopicCreationDto, Topic>();
+        CreateMap<TopicUpdateDto, Topic>();
     }
 }

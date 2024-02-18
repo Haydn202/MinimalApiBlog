@@ -12,6 +12,7 @@ public static class EndpointRouteBuilderExtensions
         articlesEndpoints.MapGet("", ArticlesHandlers.GetArticlesAsync);
         articleEndpoint.MapGet("", ArticlesHandlers.GetArticleAsync).WithName("GetArticle");
         articlesEndpoints.MapPost("", ArticlesHandlers.PostArticleAsync);
+        articleEndpoint.MapPut("", ArticlesHandlers.PutArticleAsync);
     }
 
     public static void RegisterTopicEndpoints(this IEndpointRouteBuilder endpointRouteBuilder)
@@ -20,7 +21,8 @@ public static class EndpointRouteBuilderExtensions
         var topicEndpoints = topicsEndpoints.MapGroup("/{topicId:guid}");
 
         topicsEndpoints.MapGet("", TopicsHandlers.GetTopicsAsync);
-        topicEndpoints.MapGet("", TopicsHandlers.GetTopicAsync);
+        topicEndpoints.MapGet("", TopicsHandlers.GetTopicAsync).WithName("GetTopic");
         topicsEndpoints.MapPost("", TopicsHandlers.PostArticleAsync);
+        topicEndpoints.MapPut("", TopicsHandlers.PutTopicAsync);
     }
 }

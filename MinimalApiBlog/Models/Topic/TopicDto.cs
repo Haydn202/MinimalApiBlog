@@ -1,4 +1,4 @@
-namespace MinimalApiBlog.Models.Article
+namespace MinimalApiBlog.Models.Topic
 {
     // public enum TopicDto
     // {
@@ -16,7 +16,7 @@ namespace MinimalApiBlog.Models.Article
     //
     public record TopicDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        public Guid Id { get; init; }
+        public required string Name { get; init; }
     }
 }
