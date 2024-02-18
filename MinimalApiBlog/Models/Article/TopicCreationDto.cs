@@ -1,6 +1,6 @@
 namespace MinimalApiBlog.Models.Article;
 
-public class TopicCreationDto
+public abstract class TopicCreationDto
 {
     public string name { get; set; }
 }

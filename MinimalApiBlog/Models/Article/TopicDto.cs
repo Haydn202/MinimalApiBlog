@@ -14,7 +14,7 @@ namespace MinimalApiBlog.Models.Article
     //     Programing
     // }
     //
-    public class TopicDto
+    public record TopicDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

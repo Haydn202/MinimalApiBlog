@@ -3,7 +3,7 @@ using MinimalApiBlog.Entities;
 
 namespace MinimalApiBlog.Models.Article;
 
-public class ArticleCreationDto
+public abstract class ArticleCreationDto
 {
     public string Title { get; set; }
     public string Description { get; set; } 

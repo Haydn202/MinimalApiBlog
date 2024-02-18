@@ -1,12 +1,12 @@
 namespace MinimalApiBlog.Models.Article;
 
-public class ArticleDto
+public record ArticleDto
 {
-    public Guid Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
+    public Guid Id { get; init; }
+    public string Title { get; init; }
+    public string Description { get; init; }
     // public List<string>? Topics { get; set; }
-    public DateTime CreatedOn { get; set; } = DateTime.Now;
+    public DateTime CreatedOn { get; init; } = DateTime.Now;
     // public List<Guid>? Comments { get; set; }
-    public string ContentUrl { get; set; }
+    public string ContentUrl { get; init; }
 }

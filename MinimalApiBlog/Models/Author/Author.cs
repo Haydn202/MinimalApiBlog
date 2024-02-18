@@ -1,18 +1,9 @@
 namespace MinimalApiBlog.Models.Author;
 
-public class Author
+public record Author(string Name, string Description, string ProfilePictureUrl, List<SocialLink> Links)
 {
-    public Author(string name, string description, string profilePictureUrl, List<SocialLink> links)
-    {
-        Name = name;
-        Description = description;
-        ProfilePictureUrl = profilePictureUrl;
-        Links = links;
-    }
-
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string ProfilePictureUrl { get; set; }
-    public List<SocialLink> Links { get; set; }
-    
+    public string Name { get; set; } = Name;
+    public string Description { get; set; } = Description;
+    public string ProfilePictureUrl { get; set; } = ProfilePictureUrl;
+    public List<SocialLink> Links { get; set; } = Links;
 }

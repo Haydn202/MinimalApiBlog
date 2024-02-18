@@ -1,6 +1,6 @@
 namespace MinimalApiBlog.Entities;
 
-public class Author
+public record Author
 {
     public Guid Id { get; init; }
     public required string Name { get; init; }
