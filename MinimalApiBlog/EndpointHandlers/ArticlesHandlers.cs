@@ -11,8 +11,10 @@ public static class ArticlesHandlers
 {
     public static async Task<Ok<IEnumerable<ArticleDto>>> GetArticlesAsync(
         BlogDbContext blogDbContext, 
-        IMapper mapper)
+        IMapper mapper,
+        ILogger<ArticleDto> logger)
     {
+        logger.LogInformation("Getting articles ...");
         return TypedResults.Ok(mapper.Map<IEnumerable<ArticleDto>>(await blogDbContext.Articles.ToListAsync()));
     }
     
